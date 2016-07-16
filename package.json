@@ -1,0 +1,10 @@
+{
+  "name": "serial-oscilloscope",
+  "version": "0.0.1",
+  "description": "serial oscilloscope front end using websockets",
+  "dependencies": {
+    "express": "4.10.2",
+    "serialport": "^4.0.1",
+    "socket.io": "1.2.0"
+  }
+}
