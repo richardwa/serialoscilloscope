@@ -1,0 +1,35 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Serial Oscilloscope</title>
+  </head>
+  <body style="background-color:rgba(96, 119, 139, 0.43)">
+    <form action="">
+      <input id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    <div id="plot"></div>
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src="plot.js"></script>
+    <script>
+      var socket = io();
+      var plot = $("#plot").plot();
+      $('form').submit(function(){
+          socket.emit('message', $('#m').val());
+          $('#m').val('');
+          return false;
+      });
+      socket.on('data', function(msg){
+          var data = msg.split('').map(o => o.charCodeAt(0))
+          console.log(data);
+      });
+      socket.on('status', function(msg){
+          var json = JSON.parse(msg);
+          console.log(json);
+      });
+      socket.on('message', function(msg){
+          console.log(msg);
+      });
+    </script>
+  </body>
+</html>
